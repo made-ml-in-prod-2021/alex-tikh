@@ -21,7 +21,7 @@ class Classifier:
                 C=params.C, penalty=params.penalty, solver=params.solver, random_state=params.random_state,
                 n_jobs=params.n_jobs, max_iter=params.max_iter
             )
-        if params.model_type == "Random Forest Classifier":
+        if params.model_type == "Random Forest":
             self.model = RandomForestClassifier(
                 n_estimators=params.n_estimators, max_depth=params.max_depth, n_jobs=params.n_jobs,
                 random_state=params.random_state

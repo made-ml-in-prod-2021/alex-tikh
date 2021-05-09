@@ -17,7 +17,7 @@ class TrainingPipelineParams:
     logger_config: str
     split_params: SplittingParams
     feature_params: FeatureParams
-    train_params: ModelParams
+    model_params: ModelParams
 
 
 TrainingPipelineParamsSchema = class_schema(TrainingPipelineParams)
