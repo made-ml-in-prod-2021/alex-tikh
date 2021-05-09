@@ -1,0 +1,18 @@
+version: 1
+formatters:
+  simple:
+    class: logging.Formatter
+    format: "%(asctime)s - %(levelname)s - %(message)s"
+handlers:
+  file_handler:
+    class: logging.handlers.TimedRotatingFileHandler
+    filename: log_info.log
+    level: DEBUG
+    formatter: simple
+    when: 'D'
+    interval: 1
+    backupCount: 90
+loggers:
+  log_info:
+    level: DEBUG
+    handlers: [file_handler]
