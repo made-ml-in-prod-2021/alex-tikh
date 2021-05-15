@@ -8,6 +8,8 @@
 
 ## Installation
 
+### For development
+
 ```bash
 git clone https://github.com/made-ml-in-prod-2021/alex-tikh.git
 git checkout homework1
@@ -15,6 +17,17 @@ cd ml_project
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+```
+
+### As package
+
+```bash
+git clone https://github.com/made-ml-in-prod-2021/alex-tikh.git
+git checkout homework1
+cd ml_project
+python -m venv .venv
+source .venv/bin/activate
+pip install -e .
 ```
 
 ## Usage
@@ -27,13 +40,13 @@ pip install -r requirements.txt
 ### Train model
 
 ```bash
-python3 train_predict_pipeline.py configs/lr_config.yaml train
+python3 src/train_pipeline.py configs/lr_train_config.yaml
 ```
 
 ### Predict with model
 
 ```bash
-python3 src/train_predict_pipeline.py configs/lr_config.yaml predict
+python3 src/predict_pipeline.py configs/lr_predict_config.yaml
 ```
 
 ## Project structure
@@ -42,8 +55,10 @@ python3 src/train_predict_pipeline.py configs/lr_config.yaml predict
 
     ├── config                        <- Configuration files for project modules.
     │   ├── logging_config.yaml
-    │   ├── lr_config.yaml
-    │   └── rf_config.yaml
+    │   ├── lr_train_config.yaml
+    │   ├── lr_predict_config.yaml
+    │   ├── rf_train_config.yaml
+    │   └── rf_predict_config.yaml
     │
     ├── data
     │   └── raw                        <- The original, immutable data dump.
@@ -61,6 +76,7 @@ python3 src/train_predict_pipeline.py configs/lr_config.yaml predict
     │   ├── entities                   <- Parameters for different project modules.
     │   │   ├── feature_params.py
     │   │   ├── model_params.py
+    │   │   ├── predict_pipeline_params.py
     │   │   ├── split_params.py
     │   │   └── train_pipeline_params.py    
     │   │
@@ -68,9 +84,9 @@ python3 src/train_predict_pipeline.py configs/lr_config.yaml predict
     │   │   ├── build_features.py
     │   │   └── custom_transformer.py  
     │   │
-    │   ├── models                     <- Scripts to train models and then use trained models to make
-    │   │   │                             predictions.
-    │   │   └── classifier.py
+    │   └── models                     <- Scripts to train models and then use trained models to make
+    │       │                             predictions.
+    │       └── classifier.py
     │
     ├── LICENSE
     │
@@ -83,7 +99,9 @@ python3 src/train_predict_pipeline.py configs/lr_config.yaml predict
     │
     ├── setup.py                       <- Makes project pip installable (pip install -e .) so src can be imported.
     │
-    └── train_predict_pipeline.py      <- Main script.
+    ├── train_pipeline.py              <- Train script.
+    │
+    └── predict_pipeline.py            <- Predict script.
 
 
 ------------
