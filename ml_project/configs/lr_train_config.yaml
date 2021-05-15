@@ -1,9 +1,7 @@
 input_data_path: "data/raw/heart.csv"
-input_data_predict_path: "data/raw/heart.csv"
-output_data_predict_path: "models/predicts.csv"
-output_model_path: "models/random_forest.pkl"
+output_model_path: "models/logistic_regression.pkl"
 output_transformer_path: "models/transformer.pkl"
-logger_config: "config/logging_config.yaml"
+logger_config: "configs/logging_config.yaml"
 split_params:
   validation_size: 0.3
   random_state: 42
@@ -12,7 +10,7 @@ feature_params:
   numerical_features: ['age', 'chol', 'thalach', 'oldpeak', 'trestbps']
   target: 'target'
 model_params:
-  model_type: "Random Forest"
+  model_type: "Logistic Regression"
   random_state: 42
   n_jobs: -1
-  n_estimators: 500
+  max_iter: 500

@@ -9,11 +9,11 @@ from .model_params import RfParams, LrParams
 from typing import Union
 
 ModelParams = Union[RfParams, LrParams]
+
+
 @dataclass
 class TrainingPipelineParams:
     input_data_path: str
-    input_data_predict_path: str
-    output_data_predict_path: str
     output_model_path: str
     output_transformer_path: str
     logger_config: str

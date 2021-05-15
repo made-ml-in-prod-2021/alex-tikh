@@ -1,0 +1,5 @@
+input_data_predict_path: "data/raw/heart.csv"
+output_data_predict_path: "models/predicts.csv"
+output_model_path: "models/logistic_regression.pkl"
+output_transformer_path: "models/transformer.pkl"
+logger_config: "configs/logging_config.yaml"
