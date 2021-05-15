@@ -8,11 +8,11 @@ import pandas as pd
 
 from typing import NoReturn, Union
 
-from src.entities import ModelParams
+from src.entities import RfParams, LrParams
 
 matrix = Union[np.ndarray, pd.DataFrame]
 vector = Union[np.ndarray, pd.Series]
-
+ModelParams = Union[RfParams, LrParams]
 
 class Classifier:
     def __init__(self, params: ModelParams) -> NoReturn:

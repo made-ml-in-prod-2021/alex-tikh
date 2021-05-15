@@ -4,9 +4,11 @@ import yaml
 
 from .feature_params import FeatureParams
 from .split_params import SplittingParams
-from .model_params import ModelParams
+from .model_params import RfParams, LrParams
 
+from typing import Union
 
+ModelParams = Union[RfParams, LrParams]
 @dataclass
 class TrainingPipelineParams:
     input_data_path: str

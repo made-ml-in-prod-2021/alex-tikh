@@ -33,7 +33,7 @@ def train_pipeline(params: TrainingPipelineParams) -> float:
     train_features = make_features(transformer, train_df.drop(columns=['target']))
     train_target = extract_target(train_df, params.feature_params)
     logger.info(f"create train features and target")
-    model = Classifier(params.train_params)
+    model = Classifier(params.model_params)
     logger.info(f"fit model")
     model.fit(train_features, train_target)
     logger.info(f"model is fitted")
