@@ -19,6 +19,11 @@ pip install -r requirements.txt
 
 ## Usage
 
+### Download dataset
+
+* download [Heart Disease UCI Dataset](https://www.kaggle.com/ronitf/heart-disease-uci)
+* put it in data/raw folder
+
 ### Train model
 
 ```bash

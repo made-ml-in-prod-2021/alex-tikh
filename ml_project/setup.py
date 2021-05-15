@@ -13,7 +13,8 @@ setup(
         'pandas==1.2.4',
         'PyYAML==5.4.1',
         'scikit-learn==0.24.2',
-        'seaborn==0.11.1',
+        'click==7.1.2',
+        'typeguard==2.12.0'
     ],
     license='MIT',
 )
