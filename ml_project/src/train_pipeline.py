@@ -3,9 +3,10 @@ import logging.config
 import yaml
 import click
 import pickle
+import pandas as pd
 
 from src.data import read_data, split_train_val_data
-from src.features import extract_target, build_transformer, build_model_pipeline
+from src.features import make_features, extract_target, build_transformer
 from src.models import Classifier, get_score
 from src.entities import TrainingPipelineParams, read_training_pipeline_params
 
@@ -34,17 +35,16 @@ def train_pipeline(params: TrainingPipelineParams) -> float:
     transformer.fit(train_df.drop(columns=['target']))
 
     logger.info(f"create train features and target")
-    train_features = train_df.drop(columns=['target'])
+    train_features = make_features(transformer, train_df.drop(columns=['target']))
     train_target = extract_target(train_df, params.feature_params)
 
     logger.info(f"fit model")
     model = Classifier(params.model_params)
-    model = build_model_pipeline(transformer, model)
     model.fit(train_features, train_target)
     logger.info(f"model is fitted")
 
     logger.info(f"create test features and target")
-    test_features = test_df.drop(columns=['target'])
+    test_features = make_features(transformer, test_df.drop(columns=['target']))
     test_target = extract_target(test_df, params.feature_params)
 
     logger.info(f"made predictions")
@@ -54,8 +54,7 @@ def train_pipeline(params: TrainingPipelineParams) -> float:
     logger.debug(f"ROC-AUC: {score}")
 
     logger.info(f"save model")
-    with open(params.output_model_path, "wb") as f:
-        pickle.dump(model, f)
+    model.dump(params.output_model_path)
 
     logger.info(f"save transformer")
     with open(params.output_transformer_path, "wb") as f:

@@ -1,6 +1,4 @@
 import numpy as np
-from sklearn.base import BaseEstimator, ClassifierMixin
-from sklearn.utils.validation import check_X_y, check_array, check_is_fitted
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import roc_auc_score
@@ -16,8 +14,7 @@ matrix = Union[np.ndarray, pd.DataFrame]
 vector = Union[np.ndarray, pd.Series]
 ModelParams = Union[RfParams, LrParams]
 
-
-class Classifier(BaseEstimator, ClassifierMixin):
+class Classifier:
     def __init__(self, params: ModelParams) -> NoReturn:
         if params.model_type == "Logistic Regression":
             self.model = LogisticRegression(
@@ -30,13 +27,10 @@ class Classifier(BaseEstimator, ClassifierMixin):
                 random_state=params.random_state
             )
 
-    def fit(self, x: matrix, y: vector) -> "Classifier":
-        x, y = check_X_y(x, y)
+    def fit(self, x: matrix, y: vector) -> NoReturn:
         self.model.fit(x, y)
-        return self
 
     def predict(self, x: matrix) -> vector:
-        x = check_array(x)
         return self.model.predict(x)
 
     def dump(self, path: str) -> NoReturn:
