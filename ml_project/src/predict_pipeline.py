@@ -6,7 +6,6 @@ import pickle
 import pandas as pd
 
 from src.data import read_data
-from src.features import make_features
 from src.entities import PredictionPipelineParams, read_prediction_pipeline_params
 
 
@@ -34,7 +33,7 @@ def predict_pipeline(params: PredictionPipelineParams) -> pd.DataFrame:
         transformer = pickle.load(f)
 
     logger.info(f"create features")
-    transformed_df = make_features(transformer, df.drop(columns=['target']))
+    transformed_df = df.drop(columns=['target'])
 
     logger.info(f"prediction")
     predicts = model.predict(transformed_df)

@@ -7,6 +7,7 @@ from sklearn.preprocessing import OneHotEncoder
 
 from src.entities import FeatureParams
 from .custom_transformer import CustomStandardScaler
+from src.models.classifier import Classifier
 
 
 def build_categorical_pipeline() -> Pipeline:
@@ -49,6 +50,16 @@ def build_transformer(params: FeatureParams) -> ColumnTransformer:
         ]
     )
     return transformer
+
+
+def build_model_pipeline(transformer: ColumnTransformer, model: Classifier) -> Pipeline:
+    model_pipeline = Pipeline(
+        [
+            ("feature_engineering", transformer),
+            ("classifier", model)
+        ]
+    )
+    return model_pipeline
 
 
 def extract_target(df: pd.DataFrame, params: FeatureParams) -> pd.Series:
