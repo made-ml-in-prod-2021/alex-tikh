@@ -28,6 +28,10 @@ def predict_pipeline(params: PredictionPipelineParams) -> pd.DataFrame:
     with open(params.output_model_path, "rb") as f:
         model = pickle.load(f)
 
+    logger.info(f"load transformer")
+    with open(params.output_transformer_path, "rb") as f:
+        transformer = pickle.load(f)
+
     logger.info(f"create features")
     transformed_df = df.drop(columns=['target'])
 
