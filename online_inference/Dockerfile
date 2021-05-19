@@ -1,9 +1,6 @@
-FROM python:3.8-alpine
+FROM python:3.8-slim
 COPY requirements.txt ./requirements.txt
-RUN apk update
-RUN apk --no-cache add curl gcc g++
-RUN ln -s /usr/include/locale.h /usr/include/xlocale.h
-RUN pip install -U pip
+
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY src /src
