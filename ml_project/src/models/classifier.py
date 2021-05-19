@@ -14,6 +14,7 @@ matrix = Union[np.ndarray, pd.DataFrame]
 vector = Union[np.ndarray, pd.Series]
 ModelParams = Union[RfParams, LrParams]
 
+
 class Classifier:
     def __init__(self, params: ModelParams) -> NoReturn:
         if params.model_type == "Logistic Regression":
