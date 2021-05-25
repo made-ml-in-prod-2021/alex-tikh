@@ -1,0 +1,16 @@
+input_data_path: "data/raw/heart.csv"
+output_model_path: "models/random_forest.pkl"
+output_transformer_path: "models/transformer.pkl"
+logger_config: "configs/logging_config.yaml"
+split_params:
+  validation_size: 0.3
+  random_state: 42
+feature_params:
+  categorical_features: ['sex', 'cp', 'restecg', 'exang', 'slope', 'fbs', 'ca', 'thal']
+  numerical_features: ['age', 'chol', 'thalach', 'oldpeak', 'trestbps']
+  target: 'target'
+model_params:
+  model_type: "Random Forest"
+  random_state: 42
+  n_jobs: -1
+  n_estimators: 500
