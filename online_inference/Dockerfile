@@ -11,5 +11,7 @@ WORKDIR .
 
 ENV PATH_TO_MODEL="models/logistic_regression.pkl"
 ENV PATH_TO_TRANSFORMER="models/transformer.pkl"
+ENV SLEEPING_TIME=20
+ENV RUNNING_TIME=60
 
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
