@@ -1,23 +1,28 @@
 apiVersion: apps/v1
-kind: ReplicaSet
+kind: Deployment
 metadata:
-  name: online-inference-v3
+  name: online-inference-v4
   labels:
-    app: online-inference-v3
+    app: online-inference-v4
 spec:
-  replicas: 1
+  replicas: 8
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0%
+      maxUnavailable: 100%
   selector:
     matchLabels:
-      app: online-inference-v3
+      app: online-inference-v4
   template:
     metadata:
-      name: online-inference-v3
+      name: online-inference-v4
       labels:
-        app: online-inference-v3
+        app: online-inference-v4
     spec:
       containers:
         - image: alexandertikh/online_inference:v4
-          name: online-inference-v3
+          name: online-inference-v4
           ports:
             - containerPort: 8000
           resources:
