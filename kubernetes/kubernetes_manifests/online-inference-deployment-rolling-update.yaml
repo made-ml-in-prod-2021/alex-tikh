@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: online-inference-v4
+  labels:
+    app: online-inference-v4
+spec:
+  replicas: 8
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0%
+      maxUnavailable: 100%
+  selector:
+    matchLabels:
+      app: online-inference-v4
+  template:
+    metadata:
+      name: online-inference-v4
+      labels:
+        app: online-inference-v4
+    spec:
+      containers:
+        - image: alexandertikh/online_inference:v4
+          name: online-inference-v4
+          ports:
+            - containerPort: 8000
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+          readinessProbe:
+            httpGet:
+              path: /status
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /status
+              port: 8000
+            initialDelaySeconds: 45
+            periodSeconds: 3

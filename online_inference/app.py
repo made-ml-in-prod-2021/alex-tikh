@@ -3,6 +3,11 @@ import os
 import pickle
 from typing import List, Optional
 
+import time
+from uvicorn import Config
+import contextlib
+import threading
+
 import pandas as pd
 import uvicorn
 from fastapi import FastAPI
@@ -85,5 +90,27 @@ def predict(request: HeartModel):
     return make_predict(request.data, request.features, model, transformer)
 
 
+# https://github.com/encode/uvicorn/issues/742
+class Server(uvicorn.Server):
+    def install_signal_handlers(self):
+        pass
+
+    @contextlib.contextmanager
+    def run_in_thread(self):
+        thread = threading.Thread(target=self.run)
+        thread.start()
+        try:
+            while not self.started:
+                time.sleep(1e-3)
+            yield
+        finally:
+            self.should_exit = True
+            thread.join()
+
+
 if __name__ == "__main__":
-    uvicorn.run("app:app", host="0.0.0.0", port=os.getenv("PORT", 8000))
+    config = Config("app:app", host="0.0.0.0", port=os.getenv("PORT", 8000))
+    server = Server(config=config)
+    time.sleep(os.getenv("SLEEPING_TIME", 30))
+    with server.run_in_thread():
+        time.sleep(os.getenv("RUNNING_TIME", 120))
